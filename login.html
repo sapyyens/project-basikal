@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucky Slot Login</title>
+
+  <style>
+
+    body{
+      margin:0;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:#120006;
+      font-family:Arial;
+      color:white;
+    }
+
+    .box{
+      width:320px;
+      background:#1d000a;
+      padding:30px;
+      border-radius:20px;
+      border:2px solid gold;
+      box-shadow:0 0 30px rgba(255,215,0,.2);
+    }
+
+    h1{
+      text-align:center;
+      color:gold;
+    }
+
+    input{
+      width:100%;
+      padding:12px;
+      margin-top:12px;
+      border:none;
+      border-radius:10px;
+      box-sizing:border-box;
+    }
+
+    button{
+      width:100%;
+      padding:12px;
+      margin-top:15px;
+      border:none;
+      border-radius:10px;
+      background:#d81b3a;
+      color:white;
+      font-size:16px;
+      cursor:pointer;
+    }
+
+    button:hover{
+      background:#ff2147;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="box">
+
+  <h1>LUCKY SLOT</h1>
+
+  <input type="text" id="username" placeholder="Username">
+
+  <input type="password" id="password" placeholder="Password">
+
+  <button onclick="register()">REGISTER</button>
+
+  <button onclick="login()">LOGIN</button>
+
+</div>
+
+<script>
+
+function register(){
+
+  const username =
+    document.getElementById("username").value;
+
+  const password =
+    document.getElementById("password").value;
+
+  if(!username || !password){
+    alert("ISI SEMUA!");
+    return;
+  }
+
+  const users =
+    JSON.parse(localStorage.getItem("users")) || {};
+
+  if(users[username]){
+    alert("USERNAME SUDAH ADA!");
+    return;
+  }
+
+  users[username] = {
+    password: password,
+    gems: 500,
+    coins: 1000,
+    fruit: 0
+  };
+
+  localStorage.setItem(
+    "users",
+    JSON.stringify(users)
+  );
+
+  alert("REGISTER BERHASIL!");
+}
+
+function login(){
+
+  const username =
+    document.getElementById("username").value;
+
+  const password =
+    document.getElementById("password").value;
+
+  const users =
+    JSON.parse(localStorage.getItem("users")) || {};
+
+  if(
+    !users[username] ||
+    users[username].password !== password
+  ){
+    alert("LOGIN GAGAL!");
+    return;
+  }
+
+  localStorage.setItem(
+    "currentUser",
+    username
+  );
+
+  window.location.href =
+    "Judol_Website.html";
+}
+
+</script>
+
+</body>
+</html>
